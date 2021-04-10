@@ -3,7 +3,7 @@
 # Role: bjornaru.sshd
 # File: tasks/main.yml
 
-- name: (sshd) Include distribution specific vars
+- name: (sshd) - Include distribution specific vars
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: (sshd) - Ensure OpenSSH is installed
@@ -20,6 +20,8 @@
     mode: 0644
     owner: root
     group: root
+    backup: yes
+    validate: /usr/sbin/sshd -t -f %s
   notify: service_sshd
 
 - meta: flush_handlers

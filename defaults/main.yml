@@ -9,4 +9,10 @@ sshd_package_state: latest
 sshd_service_enabled: true
 sshd_service_state: reloaded
 
+
+# sshd_config
+
+sshd_listen_addresses: []
+sshd_host_keys: []
+
 ...

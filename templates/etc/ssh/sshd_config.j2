@@ -1,14 +1,15 @@
-#
-# /etc/ssh/sshd_config
-#
-
 
 # Daemon
 
 Port {{ sshd_port | default('22') }}
 AddressFamily {{ sshd_address_family | default('any') }}
-ListenAddress {{ sshd_listen_address_ipv4 | default('0.0.0.0') }}
-ListenAddress {{ sshd_listen_address_ipv6 | default('::') }}
+{% for sshd_listen_address in sshd_listen_addresses %}
+ListenAddress {{ sshd_listen_address }}
+{% endfor %}
+
+{% for sshd_host_key in sshd_host_keys %}
+HostKey {{ sshd_host_key }}
+{% endfor %}
 
 
 # Logging
@@ -33,29 +34,25 @@ Banner {{ sshd_banner_path | default('no') }}
 
 AuthorizedKeysFile {{ sshd_authorized_keys_file | default('.ssh/authorized_keys /etc/ssh/userkeys/%u') }}
 
-{% if sshd_authorized_keys_command %}
 AuthorizedKeysCommand {{ sshd_authorized_keys_command | default('none') }}
-{% endif %}
-{% if sshd_authorized_keys_command_user %}
 AuthorizedKeysCommandUser {{ sshd_authorized_keys_command_user | default('nobody') }}
-{% endif %}
 
 
 # Access
 
-{% if sshd_allow_groups %}
+{% if sshd_allow_groups is defined %}
 AllowGroups {{ sshd_allow_groups | unique | join(" ") }}
 {% endif %}
 
-{% if sshd_allow_users %}
+{% if sshd_allow_users is defined %}
 AllowUsers {{ sshd_allow_users | unique | join(" ") }}
 {% endif %}
 
-{% if sshd_deny_groups %}
+{% if sshd_deny_groups is defined %}
 DenyGroups {{ sshd_deny_groups | unique | join(" ") }}
 {% endif %}
 
-{% if sshd_deny_users %}
+{% if sshd_deny_users is defined %}
 DenyUsers {{ sshd_deny_users | unique | join(" ") }}
 {% endif %}
 
@@ -65,7 +62,6 @@ DenyUsers {{ sshd_deny_users | unique | join(" ") }}
 KerberosAuthentication {{ sshd_kerberos_authentication | default('no') }}
 KerberosOrLocalPasswd {{ sshd_kerberos_or_local_passwd | default('yes') }}
 KerberosTicketCleanup {{ sshd_kerberos_ticket_cleanup | default ('yes') }}
-KerberosGetAFSToken {{ sshd_kerberos_get_afs_token | default ('no') }}
 
 
 # GSSAPI
