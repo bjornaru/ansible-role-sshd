@@ -1,0 +1,8 @@
+---
+
+# Role: bjornaru.sshd
+# File: vars/Debian.yml
+
+sshd_service_name: ssh
+
+...

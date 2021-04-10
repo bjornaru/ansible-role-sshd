@@ -1,0 +1,8 @@
+---
+
+# Role: bjornaru.sshd
+# File: vars/RedHat.yml
+
+sshd_service_name: sshd
+
+...

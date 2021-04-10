@@ -1,0 +1,13 @@
+---
+
+# Role: bjornaru.sshd
+# File: handlers/main.yml
+
+- name: service_sshd
+  become: yes
+  service:
+    name: "{{ sshd_service_name }}"
+    enabled: "{{ sshd_service_enabled }}"
+    state: "{{ sshd_service_state }}"
+
+...

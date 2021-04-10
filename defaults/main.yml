@@ -1,0 +1,12 @@
+---
+
+# Role: bjornaru.sshd
+# File: defaults/main.yml
+
+sshd_package_name: openssh-server
+sshd_package_state: latest
+
+sshd_service_enabled: true
+sshd_service_state: reloaded
+
+...

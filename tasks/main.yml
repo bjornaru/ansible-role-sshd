@@ -1,0 +1,27 @@
+---
+
+# Role: bjornaru.sshd
+# File: tasks/main.yml
+
+- name: (sshd) Include distribution specific vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: (sshd) - Ensure OpenSSH is installed
+  become: yes
+  package:
+    name: "{{ sshd_package_name }}"
+    state: "{{ sshd_package_state }}"
+
+- name: (sshd) - Template out /etc/ssh/sshd_config
+  become: yes
+  template:
+    src: etc/ssh/sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    mode: 0644
+    owner: root
+    group: root
+  notify: service_sshd
+
+- meta: flush_handlers
+
+...

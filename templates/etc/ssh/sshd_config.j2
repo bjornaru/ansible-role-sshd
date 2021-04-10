@@ -1,0 +1,116 @@
+#
+# /etc/ssh/sshd_config
+#
+
+
+# Daemon
+
+Port {{ sshd_port | default('22') }}
+AddressFamily {{ sshd_address_family | default('any') }}
+ListenAddress {{ sshd_listen_address_ipv4 | default('0.0.0.0') }}
+ListenAddress {{ sshd_listen_address_ipv6 | default('::') }}
+
+
+# Logging
+
+SyslogFacility {{ sshd_syslog_facility | default('AUTH') }}
+LogLevel {{ sshd_log_level | default('INFO') }}
+
+
+# Authentication
+
+LoginGraceTime {{ sshd_login_grace_time | default('2m') }}
+StrictModes {{ sshd_strict_modes | default('yes') }}
+MaxAuthTries {{ sshd_max_auth_tries | default('6') }}
+MaxSessions {{ sshd_max_sessions | default('10') }}
+
+PubkeyAuthentication {{ sshd_pubkey_authentication | default('yes') }}
+PasswordAuthentication {{ sshd_password_authentication | default('no') }}
+PermitRootLogin {{ sshd_permit_root_login | default('no') }}
+PermitEmptyPasswords {{ sshd_permit_empty_passwords | default('no') }}
+
+Banner {{ sshd_banner_path | default('no') }}
+
+AuthorizedKeysFile {{ sshd_authorized_keys_file | default('.ssh/authorized_keys /etc/ssh/userkeys/%u') }}
+
+{% if sshd_authorized_keys_command %}
+AuthorizedKeysCommand {{ sshd_authorized_keys_command | default('none') }}
+{% endif %}
+{% if sshd_authorized_keys_command_user %}
+AuthorizedKeysCommandUser {{ sshd_authorized_keys_command_user | default('nobody') }}
+{% endif %}
+
+
+# Access
+
+{% if sshd_allow_groups %}
+AllowGroups {{ sshd_allow_groups | unique | join(" ") }}
+{% endif %}
+
+{% if sshd_allow_users %}
+AllowUsers {{ sshd_allow_users | unique | join(" ") }}
+{% endif %}
+
+{% if sshd_deny_groups %}
+DenyGroups {{ sshd_deny_groups | unique | join(" ") }}
+{% endif %}
+
+{% if sshd_deny_users %}
+DenyUsers {{ sshd_deny_users | unique | join(" ") }}
+{% endif %}
+
+
+# Kerberos
+
+KerberosAuthentication {{ sshd_kerberos_authentication | default('no') }}
+KerberosOrLocalPasswd {{ sshd_kerberos_or_local_passwd | default('yes') }}
+KerberosTicketCleanup {{ sshd_kerberos_ticket_cleanup | default ('yes') }}
+KerberosGetAFSToken {{ sshd_kerberos_get_afs_token | default ('no') }}
+
+
+# GSSAPI
+
+GSSAPIAuthentication {{ sshd_gssapi_authentication | default('no') }}
+GSSAPICleanupCredentials {{ sshd_gssapi_cleanup_credentials | default('yes') }}
+GSSAPIStrictAcceptorCheck {{ sshd_gssapi_strict_acceptor_check | default('yes') }}
+GSSAPIKeyExchange {{ sshd_gssapi_key_exchange | default('no') }}
+
+
+# PAM
+
+UsePAM {{ sshd_use_pam | default('yes') }}
+ChallengeResponseAuthentication {{ sshd_challenge_response_authentication | default('no') }}
+
+
+# X11
+
+X11Forwarding {{ sshd_x11_forwarding | default('no') }}
+X11DisplayOffset {{ sshd_x11_display_offset | default('10') }}
+X11UseLocalhost {{ sshd_x11_use_localhost | default('yes') }}
+
+
+# Other
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+PermitTTY {{ sshd_permit_tty | default('yes') }}
+PrintMotd {{ sshd_print_motd | default('no') }}
+AcceptEnv {{ sshd_accept_env | default('LANG LC_*') }}
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+#GatewayPorts no
+PrintLastLog yes
+#TCPKeepAlive yes
+#UseLogin no
+#UsePrivilegeSeparation sandbox
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS no
+#PidFile /var/run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
