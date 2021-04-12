@@ -1,8 +1,8 @@
 
 # Daemon
 
-Port {{ sshd_port | default('22') }}
-AddressFamily {{ sshd_address_family | default('any') }}
+Port {{ sshd_port }}
+AddressFamily {{ sshd_address_family }}
 {% for sshd_listen_address in sshd_listen_addresses %}
 ListenAddress {{ sshd_listen_address }}
 {% endfor %}
@@ -14,28 +14,28 @@ HostKey {{ sshd_host_key }}
 
 # Logging
 
-SyslogFacility {{ sshd_syslog_facility | default('AUTH') }}
-LogLevel {{ sshd_log_level | default('INFO') }}
+SyslogFacility {{ sshd_syslog_facility }}
+LogLevel {{ sshd_log_level }}
 
 
 # Authentication
 
-LoginGraceTime {{ sshd_login_grace_time | default('2m') }}
-StrictModes {{ sshd_strict_modes | default('yes') }}
-MaxAuthTries {{ sshd_max_auth_tries | default('6') }}
-MaxSessions {{ sshd_max_sessions | default('10') }}
+LoginGraceTime {{ sshd_login_grace_time }}
+StrictModes {{ sshd_strict_modes }}
+MaxAuthTries {{ sshd_max_auth_tries }}
+MaxSessions {{ sshd_max_sessions }}
 
-PubkeyAuthentication {{ sshd_pubkey_authentication | default('yes') }}
-PasswordAuthentication {{ sshd_password_authentication | default('no') }}
-PermitRootLogin {{ sshd_permit_root_login | default('no') }}
-PermitEmptyPasswords {{ sshd_permit_empty_passwords | default('no') }}
+PubkeyAuthentication {{ sshd_pubkey_authentication }}
+PasswordAuthentication {{ sshd_password_authentication }}
+PermitRootLogin {{ sshd_permit_root_login }}
+PermitEmptyPasswords {{ sshd_permit_empty_passwords }}
 
-Banner {{ sshd_banner_path | default('no') }}
+Banner {{ sshd_banner_path }}
 
-AuthorizedKeysFile {{ sshd_authorized_keys_file | default('.ssh/authorized_keys /etc/ssh/userkeys/%u') }}
+AuthorizedKeysFile {{ sshd_authorized_keys_file }}
 
-AuthorizedKeysCommand {{ sshd_authorized_keys_command | default('none') }}
-AuthorizedKeysCommandUser {{ sshd_authorized_keys_command_user | default('nobody') }}
+AuthorizedKeysCommand {{ sshd_authorized_keys_command }}
+AuthorizedKeysCommandUser {{ sshd_authorized_keys_command_user }}
 
 
 # Access
@@ -59,51 +59,51 @@ DenyUsers {{ sshd_deny_users | unique | join(" ") }}
 
 # Kerberos
 
-KerberosAuthentication {{ sshd_kerberos_authentication | default('no') }}
-KerberosOrLocalPasswd {{ sshd_kerberos_or_local_passwd | default('yes') }}
-KerberosTicketCleanup {{ sshd_kerberos_ticket_cleanup | default ('yes') }}
+KerberosAuthentication {{ sshd_kerberos_authentication }}
+KerberosOrLocalPasswd {{ sshd_kerberos_or_local_passwd }}
+KerberosTicketCleanup {{ sshd_kerberos_ticket_cleanup }}
 
 
 # GSSAPI
 
-GSSAPIAuthentication {{ sshd_gssapi_authentication | default('no') }}
-GSSAPICleanupCredentials {{ sshd_gssapi_cleanup_credentials | default('yes') }}
-GSSAPIStrictAcceptorCheck {{ sshd_gssapi_strict_acceptor_check | default('yes') }}
-GSSAPIKeyExchange {{ sshd_gssapi_key_exchange | default('no') }}
+GSSAPIAuthentication {{ sshd_gssapi_authentication }}
+GSSAPICleanupCredentials {{ sshd_gssapi_cleanup_credentials }}
+GSSAPIStrictAcceptorCheck {{ sshd_gssapi_strict_acceptor_check }}
+GSSAPIKeyExchange {{ sshd_gssapi_key_exchange }}
 
 
 # PAM
 
-UsePAM {{ sshd_use_pam | default('yes') }}
-ChallengeResponseAuthentication {{ sshd_challenge_response_authentication | default('no') }}
+UsePAM {{ sshd_use_pam }}
+ChallengeResponseAuthentication {{ sshd_challenge_response_authentication }}
 
 
 # X11
 
-X11Forwarding {{ sshd_x11_forwarding | default('no') }}
-X11DisplayOffset {{ sshd_x11_display_offset | default('10') }}
-X11UseLocalhost {{ sshd_x11_use_localhost | default('yes') }}
+X11Forwarding {{ sshd_x11_forwarding }}
+X11DisplayOffset {{ sshd_x11_display_offset }}
+X11UseLocalhost {{ sshd_x11_use_localhost }}
 
 
 # Other
 
-Subsystem sftp /usr/lib/openssh/sftp-server
-PermitTTY {{ sshd_permit_tty | default('yes') }}
-PrintMotd {{ sshd_print_motd | default('no') }}
-AcceptEnv {{ sshd_accept_env | default('LANG LC_*') }}
+Subsystem {{ sshd_subsystem }} {{ sshd_subsystem_path }}
+PermitTTY {{ sshd_permit_tty }}
+PrintMotd {{ sshd_print_motd }}
+AcceptEnv {{ sshd_accept_env }}
 
-#AllowAgentForwarding yes
-#AllowTcpForwarding yes
-#GatewayPorts no
-PrintLastLog yes
-#TCPKeepAlive yes
-#UseLogin no
-#UsePrivilegeSeparation sandbox
-#PermitUserEnvironment no
-#Compression delayed
-#ClientAliveInterval 0
-#ClientAliveCountMax 3
-#UseDNS no
+AllowAgentForwarding {{ sshd_allow_agent_forwarding }}
+AllowTcpForwarding {{ sshd_allow_tcp_forwarding }}
+GatewayPorts {{ sshd_gateway_ports }}
+PrintLastLog {{ sshd_print_last_log }}
+TCPKeepAlive {{ sshd_tcp_keep_alive }}
+UseLogin {{ sshd_use_login }}
+UsePrivilegeSeparation {{ sshd_use_privilege_separation }}
+PermitUserEnvironment {{ sshd_permit_user_environment }}
+Compression {{ sshd_compression }}
+ClientAliveInterval {{ sshd_client_alive_interval }}
+ClientAliveCountMax {{ sshd_client_alive_count_max }}
+UseDNS {{ sshd_use_dns }}
 #PidFile /var/run/sshd.pid
 #MaxStartups 10:30:100
 #PermitTunnel no

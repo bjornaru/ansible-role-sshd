@@ -12,7 +12,60 @@ sshd_service_state: reloaded
 
 # sshd_config
 
+sshd_port: 22
+sshd_address_family: any
 sshd_listen_addresses: []
 sshd_host_keys: []
+sshd_syslog_facility: AUTH
+sshd_log_level: INFO
+sshd_login_grace_time: 2m
+sshd_strict_modes: yes
+sshd_max_auth_tires: 6
+sshd_max_sessions: 10
+
+sshd_pubkey_authentication: yes
+sshd_password_authentication: no
+sshd_permit_root_login: no
+sshd_permit_empty_passwords: no
+sshd_banner_path: no
+
+sshd_authorized_keys_file: '.ssh/authorized_keys /etc/ssh/userkeys/%u'
+sshd_authorized_keys_command: none
+sshd_authorized_keys_command_user: nobody
+
+sshd_kerberos_authentication: no
+sshd_kerberos_or_local_passwd: yes
+sshd_kerberos_ticket_cleanup: yes
+
+sshd_gssapi_authentication: no
+sshd_gssapi_cleanup_credentials: yes
+sshd_gssapi_strict_acceptor_check: yes
+sshd_gssapi_key_exchange: no
+
+sshd_use_pam: yes
+sshd_challenge_response_authentication: no
+
+sshd_x11_forwarding: no
+sshd_x11_display_offset: 10
+sshd_x11_use_localhost: yes
+
+sshd_subsystem: sftp
+sshd_subsystem_path: /usr/lib/openssh/sftp-server
+sshd_permit_tty: yes
+sshd_print_motd: no
+sshd_accept_env: LANG LC_*
+
+sshd_allow_agent_forwarding: yes
+sshd_allow_tcp_forwarding: yes
+sshd_gateway_ports: no
+sshd_print_last_log: yes
+sshd_tcp_keep_alive: yes
+sshd_use_login: no
+sshd_use_privilege_separation: sandbox
+sshd_permit_user_environment: no
+sshd_compression: delayed
+sshd_client_alive_interval: 0
+sshd_client_alive_count_max: 3
+sshd_use_dns: no
 
 ...
