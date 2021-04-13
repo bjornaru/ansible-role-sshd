@@ -67,5 +67,9 @@ sshd_compression: 'delayed'
 sshd_client_alive_interval: '0'
 sshd_client_alive_count_max: '3'
 sshd_use_dns: 'no'
+sshd_max_startups: '10:30:100'
+sshd_permit_tunnel: 'no'
+sshd_chroot_directory: 'none'
+sshd_version_addendum: 'none'
 
 ...

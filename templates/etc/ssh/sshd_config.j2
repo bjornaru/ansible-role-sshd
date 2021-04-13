@@ -104,9 +104,8 @@ Compression {{ sshd_compression }}
 ClientAliveInterval {{ sshd_client_alive_interval }}
 ClientAliveCountMax {{ sshd_client_alive_count_max }}
 UseDNS {{ sshd_use_dns }}
-#PidFile /var/run/sshd.pid
-#MaxStartups 10:30:100
-#PermitTunnel no
-#ChrootDirectory none
-#VersionAddendum none
+MaxStartups {{ sshd_max_startups }}
+PermitTunnel {{ sshd_permit_tunnel }}
+ChrootDirectory {{ sshd_chroot_directory }}
+VersionAddendum {{ sshd_version_addendum }}
 
