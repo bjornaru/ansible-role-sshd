@@ -20,7 +20,7 @@ sshd_syslog_facility: AUTH
 sshd_log_level: INFO
 sshd_login_grace_time: 2m
 sshd_strict_modes: yes
-sshd_max_auth_tires: 6
+sshd_max_auth_tries: 6
 sshd_max_sessions: 10
 
 sshd_pubkey_authentication: yes
